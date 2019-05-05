@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_normal">18dp</dimen>
+    <dimen name="text_size_bit_big">20sp</dimen>
+    <dimen name="text_size_normal">18sp</dimen>
+    <dimen name="loading_anim_size">200dp</dimen>
+    <dimen name="padding_normal">18dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="movie_image_width">150dp</dimen>
+    <dimen name="movie_image_height">250dp</dimen>
+    <dimen name="padding_small">6dp</dimen>
+    <dimen name="text_size_small">15sp</dimen>
+    <dimen name="normal_image_size">28sp</dimen>
+    <dimen name="margin_small">6dp</dimen>
+    <dimen name="margin_bit_small">10dp</dimen>
+    <dimen name="margin_tiny">4dp</dimen>
+</resources>
