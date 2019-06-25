@@ -23,14 +23,11 @@ import com.ozan.moviest.databinding.ActivityMainBinding;
 import com.ozan.moviest.helper.BaseActivity;
 import com.ozan.moviest.helper.Constant;
 import com.ozan.moviest.helper.Controller;
-import com.ozan.moviest.model.DataTypes;
-import com.ozan.moviest.model.EventData;
 import com.ozan.moviest.model.Movie;
 import com.ozan.moviest.model.response.SearchResponse;
-import com.ozan.moviest.model.response.UpComingAndNPResponse;
 import com.ozan.moviest.network.Api;
 import com.ozan.moviest.network.ApiClient;
-import com.ozan.moviest.ui.fragments.MovieDetailFragment;
+import com.ozan.moviest.ui.fragments.FavoritiesFragment;
 import com.ozan.moviest.ui.fragments.NowPlayingFragment;
 import com.ozan.moviest.ui.fragments.TopRatedFragment;
 import com.ozan.moviest.ui.fragments.UpComingFragment;
@@ -43,10 +40,10 @@ import retrofit2.Response;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = MainActivity.class.getSimpleName();
-    Fragment fragment;
     public TopRatedFragment topRatedFragment;
     public NowPlayingFragment nowPlayingFragment;
     public UpComingFragment upComingFragment;
+    public FavoritiesFragment favoritiesFragment;
     Call<SearchResponse> searchCall;
     List<Movie> searchList;
     @Override
@@ -69,7 +66,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
     private void setUpViewPager() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 3, getContext());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 4, getContext());
         getBinding().viewpager.setAdapter(viewPagerAdapter);
         getBinding().viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -101,6 +98,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         getBinding().tabs.newTab().setText(getContext().getString(R.string.first_tab));
         getBinding().tabs.newTab().setText(getContext().getString(R.string.second_tab));
         getBinding().tabs.newTab().setText(getContext().getString(R.string.third_tab));
+        getBinding().tabs.newTab().setText(getResources().getString(R.string.forth_tab));
         getBinding().tabs.setTabGravity(TabLayout.GRAVITY_CENTER);
         //Utils.setCustomFont(getContext(),getBinding().tabs);
     }

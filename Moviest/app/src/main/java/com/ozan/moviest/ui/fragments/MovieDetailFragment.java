@@ -41,27 +41,21 @@ public class MovieDetailFragment extends BaseFragment<FragmentMovieDetailBinding
     public static final String TAG = MovieDetailFragment.class.getSimpleName();
     private int movieId;
     Call<MovieDetail> detailCall;
-
-    int pageCount = 1;
-    int searchPageCount = 1;
-    int searchTotalPageSize = 0;
-    int totalPageSize = 0;
-    String searchQery = "";
-    private boolean searchProcess = false;
-    Call<UpComingAndNPResponse> nowPlayingCall;
-    List<Movie> nowPlayingList;
-    MovieAdapter movieAdapter;
     boolean loading = false;
 
-    private int lastVisibleItem = 0;
-    private int totalItemCount = 0;
-    LinearLayoutManager linearLayoutManager;
+    public static MovieDetailFragment newInstance(int movieId) {
+
+        Bundle args = new Bundle();
+        args.putInt("movie_id",movieId);
+        MovieDetailFragment fragment = new MovieDetailFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public MovieDetailFragment() {
 
     }
 
-    private Movie currentMovie;
 
     @Override
     public int getLayoutId() {
@@ -71,6 +65,7 @@ public class MovieDetailFragment extends BaseFragment<FragmentMovieDetailBinding
     @Override
     public void initView() {
 
+        movieId = getArguments().getInt("movie_id");
     }
 
     @Override

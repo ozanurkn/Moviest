@@ -19,6 +19,13 @@ allprojects {
     repositories {
         google()
         jcenter()
+        configurations {
+            all {
+                resolutionStrategy {
+                    force "android.arch.lifecycle:runtime:1.1.1"
+                }
+            }
+        }
     }
 }
 

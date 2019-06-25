@@ -41,6 +41,15 @@ public class TopRatedFragment extends BaseFragment<FragmentTopRatedBinding> {
     private int totalItemCount = 0;
     LinearLayoutManager linearLayoutManager;
 
+    public static TopRatedFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        TopRatedFragment fragment = new TopRatedFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public TopRatedFragment() {
     }
     @Override

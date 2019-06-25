@@ -29,11 +29,7 @@ public class UpComingFragment extends BaseFragment<FragmentUpComingBinding>{
     public static final String TAG = UpComingFragment.class.getSimpleName();
 
     int pageCount = 1;
-    int searchPageCount = 1;
-    int searchTotalPageSize = 0;
     int totalPageSize = 0;
-    String searchQery = "";
-    private boolean searchProcess = false;
     Call<UpComingAndNPResponse> upComingCall;
     List<Movie> upComingList;
     MovieAdapter movieAdapter;
@@ -43,6 +39,12 @@ public class UpComingFragment extends BaseFragment<FragmentUpComingBinding>{
     private int totalItemCount = 0;
     LinearLayoutManager linearLayoutManager;
 
+    public static UpComingFragment getInstance(){
+        Bundle args = new Bundle();
+        UpComingFragment fragment = new UpComingFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     public UpComingFragment(){
 
     }

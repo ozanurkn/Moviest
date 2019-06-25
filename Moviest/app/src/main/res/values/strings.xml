@@ -5,10 +5,12 @@
     <string name="first_tab">Top Rated</string>
     <string name="second_tab">Upcoming</string>
     <string name="third_tab">Now Playing</string>
+    <string name="forth_tab">Favorites</string>
     <string name="no_connection">You have not internet connection!</string>
     <string name="noConnectionStr">NoConnectionFragment</string>
     <string name="loading">Loading…</string>
     <string name="errorDesc">An error occurred while getting movies.</string>
+    <string name="emptyDesc">Please entry the movie in your favorite list</string>
     <string name="release_date">Release Date :</string>
     <string name="search">Search</string>
     <string name="movieDetail">MovieDetailFragmentTag</string>

@@ -27,11 +27,7 @@ import retrofit2.Response;
 public class NowPlayingFragment extends BaseFragment<FragmentNowPlayingBinding> {
     public static final String TAG = NowPlayingFragment.class.getSimpleName();
     int pageCount = 1;
-    int searchPageCount = 1;
-    int searchTotalPageSize = 0;
     int totalPageSize = 0;
-    String searchQery = "";
-    private boolean searchProcess = false;
     Call<UpComingAndNPResponse> nowPlayingCall;
     List<Movie> nowPlayingList;
     MovieAdapter movieAdapter;
@@ -40,6 +36,15 @@ public class NowPlayingFragment extends BaseFragment<FragmentNowPlayingBinding> 
     private int lastVisibleItem = 0;
     private int totalItemCount = 0;
     LinearLayoutManager linearLayoutManager;
+
+    public static NowPlayingFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        NowPlayingFragment fragment = new NowPlayingFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public NowPlayingFragment() {
 

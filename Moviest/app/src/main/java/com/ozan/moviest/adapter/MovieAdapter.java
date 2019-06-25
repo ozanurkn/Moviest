@@ -105,11 +105,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                     @Override
                     public void onClick(View view) {
 
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("movie_id", movieList.get(position).getId());
-
-                        MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
-                        movieDetailFragment.setArguments(bundle);
+                        MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance(movieList.get(position).getId());
                         ((MainActivity)mContext).getBinding().searchingPage.setVisibility(View.GONE);
                         ((MainActivity)mContext).getBinding().mainContainer.setVisibility(View.VISIBLE);
                         ((MainActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,movieDetailFragment).addToBackStack(String.valueOf(R.string.movieDetail)).commit();

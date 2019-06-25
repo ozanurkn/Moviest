@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ozan.moviest.R;
 import com.ozan.moviest.ui.activities.MainActivity;
+import com.ozan.moviest.ui.fragments.FavoritiesFragment;
 import com.ozan.moviest.ui.fragments.NowPlayingFragment;
 import com.ozan.moviest.ui.fragments.TopRatedFragment;
 import com.ozan.moviest.ui.fragments.UpComingFragment;
@@ -21,16 +22,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 if (mainActivity.topRatedFragment == null)
-                    mainActivity.topRatedFragment = new TopRatedFragment();
+                    mainActivity.topRatedFragment = TopRatedFragment.newInstance();
                 return mainActivity.topRatedFragment;
             case 1:
                 if (mainActivity.upComingFragment == null)
-                    mainActivity.upComingFragment = new UpComingFragment();
+                    mainActivity.upComingFragment = UpComingFragment.getInstance();
                 return mainActivity.upComingFragment;
             case 2:
                 if (mainActivity.nowPlayingFragment == null)
-                    mainActivity.nowPlayingFragment = new NowPlayingFragment();
+                    mainActivity.nowPlayingFragment = NowPlayingFragment.newInstance();
                 return mainActivity.nowPlayingFragment;
+            case 3:
+                if (mainActivity.favoritiesFragment == null)
+                    mainActivity.favoritiesFragment = FavoritiesFragment.newInstance();
+                return mainActivity.favoritiesFragment;
             default:
                 return null;
         }
@@ -51,6 +56,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             return mainActivity.getString(R.string.second_tab);
         }else if (position == 2){
             return mainActivity.getString(R.string.third_tab);
+        }else if (position == 3){
+            return mainActivity.getString(R.string.forth_tab);
         }else {
             return mainActivity.getString(R.string.first_tab);
         }
