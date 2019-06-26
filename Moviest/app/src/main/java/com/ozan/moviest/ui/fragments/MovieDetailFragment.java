@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +30,8 @@ import com.ozan.moviest.model.MovieDetail;
 import com.ozan.moviest.model.response.UpComingAndNPResponse;
 import com.ozan.moviest.network.Api;
 import com.ozan.moviest.network.ApiClient;
+import com.ozan.moviest.store.localdb.FavoriteMovie;
+import com.ozan.moviest.store.localdb.MovieDatabase;
 
 import java.util.List;
 
@@ -42,11 +45,13 @@ public class MovieDetailFragment extends BaseFragment<FragmentMovieDetailBinding
     private int movieId;
     Call<MovieDetail> detailCall;
     boolean loading = false;
+    FavoriteMovie favoriteMovie;
+    MovieDetail movieDetail;
 
     public static MovieDetailFragment newInstance(int movieId) {
 
         Bundle args = new Bundle();
-        args.putInt("movie_id",movieId);
+        args.putInt("movie_id", movieId);
         MovieDetailFragment fragment = new MovieDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -66,6 +71,8 @@ public class MovieDetailFragment extends BaseFragment<FragmentMovieDetailBinding
     public void initView() {
 
         movieId = getArguments().getInt("movie_id");
+        favoriteMovie = new FavoriteMovie();
+        movieDetail = new MovieDetail();
     }
 
     @Override
@@ -98,12 +105,14 @@ public class MovieDetailFragment extends BaseFragment<FragmentMovieDetailBinding
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
                 detailCall = null;
                 loading = false;
-                getBinding().loadingLayout.setVisibility(View.GONE);
                 try {
                     if (response.code() == 200) {
+                        movieDetail = response.body();
                         loadingContent(response);
+                        getBinding().loadingLayout.setVisibility(View.GONE);
                     }
                 } catch (NullPointerException ex) {
+                    getBinding().loadingLayout.setVisibility(View.GONE);
                     ex.printStackTrace();
                 }
             }
@@ -151,22 +160,34 @@ public class MovieDetailFragment extends BaseFragment<FragmentMovieDetailBinding
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fav_menu,menu);
+        inflater.inflate(R.menu.fav_menu, menu);
+        menu.removeItem(R.id.action_search);
+        MenuItem menuItem = menu.findItem(R.id.action_fav);
+        if (favoriteMovie.isContainMovie(MovieDatabase.getDatabase(getContext()).favoriteMovieDao().getAll(), movieId)) {
+            menuItem.setIcon(R.drawable.ic_favorite);
+        }
     }
 
-    @Override
+   /* @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem menuItem = menu.findItem(R.id.action_fav);
         menu.removeItem(R.id.action_search);
-    }
+
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_fav){
+        if (!favoriteMovie.isContainMovie(MovieDatabase.getDatabase(getContext()).favoriteMovieDao().getAll(), movieId)) {
             item.setIcon(R.drawable.ic_favorite);
-            Toast.makeText(getContext(),"Favorilere Eklenmistir",Toast.LENGTH_SHORT).show();
+            MovieDatabase.getDatabase(getContext()).favoriteMovieDao().addFavoriteMovie(new FavoriteMovie().convertMovieDetailToFavMovie(movieDetail));
+            Toast.makeText(getContext(), "Favorilere Eklenmistir", Toast.LENGTH_SHORT).show();
+            Log.i("CountOfFavorite", "CountOfFavorite = " + MovieDatabase.getDatabase(getContext()).favoriteMovieDao().countFavoriteMovie());
+        } else {
+            item.setIcon(R.drawable.ic_favorite_outlined);
+            MovieDatabase.getDatabase(getContext()).favoriteMovieDao().removeById(movieId);
+            Toast.makeText(getContext(), "Favorilerden Silinmiştir.", Toast.LENGTH_SHORT).show();
+            Log.i("CountOfFavorite", "CountOfFavorite = " + MovieDatabase.getDatabase(getContext()).favoriteMovieDao().countFavoriteMovie());
+
         }
 
         return super.onOptionsItemSelected(item);
