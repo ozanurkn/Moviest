@@ -84,7 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                 .addListener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.avl_avatar.setVisibility(View.GONE);
+                        holder.avl_avatar.setVisibility(View.VISIBLE);
                         return false;
                     }
 
@@ -105,6 +105,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                     @Override
                     public void onClick(View view) {
 
+                        if (((MainActivity)mContext).getBinding().searchView.isSearchOpen()){
+                            ((MainActivity)mContext).getBinding().searchView.closeSearch();
+                        }
                         MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance(movieList.get(position).getId());
                         ((MainActivity)mContext).getBinding().searchingPage.setVisibility(View.GONE);
                         ((MainActivity)mContext).getBinding().mainContainer.setVisibility(View.VISIBLE);

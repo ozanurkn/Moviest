@@ -20,6 +20,7 @@ import com.ozan.moviest.databinding.ActivityMainBinding;
 import com.ozan.moviest.helper.BaseActivity;
 import com.ozan.moviest.helper.Constant;
 import com.ozan.moviest.helper.Controller;
+import com.ozan.moviest.helper.Utils;
 import com.ozan.moviest.model.Movie;
 import com.ozan.moviest.model.response.SearchResponse;
 import com.ozan.moviest.network.Api;
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchService(query);
+                Utils.hideKeyboard(MainActivity.this);
                 return true;
             }
 
